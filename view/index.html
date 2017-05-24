@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+  <link rel="stylesheet" href="/public/base.css" />
+  <link rel="stylesheet/less" type="text/css" href="/public/index.less" />
+  <script src="https://cdn.bootcss.com/less.js/3.0.0-pre.4/less.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/socket.io/2.0.1/socket.io.js"></script>
+  <script src="/public/observer.js"></script>
+</head>
+<body>
+  <main id="app" class="ub">
+    <aside class="ub">
+      <ul class="ub ub-ver rooms">
+        <li class="ub" v-for="(room, roomIndex) in rooms" :key="room.id">{{ room.name }}</li>
+      </ul>
+    </aside>
+    <section class="ub-f1 ub">
+      <div class="ub-f1 ub ub-ver ub-ac current-room">
+        <ul class="ub-f1 ub current-room-msgBox">
+          <li class="ub" v-for="(msg, msgIndex) in currentRoom.msgRows" :key="msgIndex">
+            <div class="ub">
+              <span class="ub-f1 ut-s">{{ msg.userName }}：</span>
+            </div>
+            <div class="ub-f1">
+              <p v-html="msg.content"></p>
+            </div>
+          </li>
+        </ul>
+        <form class="ub ub-ac ub-pc current-room-form">
+          <div class="ub-f1 ub">
+            <textarea rows="3" id="room-textarea" v-model="currentRoom.inputVal" class="current-room-form-input"></textarea>
+          </div>
+          <input type="button" name="send" class="current-room-form-send" @click.stop="sendRoomMsg" value="发送">
+        </form>
+      </div>
+      <ul class="current-room-users">
+        <li v-for="(roomUser, roomUserIndex) in currentRoom.users" :key="roomUser.id">{{roomUser.name}}</li>
+      </ul>
+    </section>
+  </main>
+  
+  
+  <script type="text/javascript">
+    window.onload = (function() {
+      new Vue({
+        el: '#app',
+        data: {
+          socket: null,
+          me: {
+            id: +new Date(),
+            name: '用户' + Math.round(Math.random() * 1000000),
+          },
+          rooms: [],
+          currentRoom: {
+            users: [],
+            msgRows: [],
+            inputVal: '',
+          },
+        },
+        watch: {
+          "currentRoom.msgRows": function(val) {
+            this.$nextTick(function(){
+              var msgBox = document.querySelector('.current-room-msgBox');
+              msgBox.scrollTop = msgBox.scrollHeight;
+            });
+          },
+        },
+        methods: {
+          skSendInfo: function(eventType, data) {
+            if (this.socket && this.socket.connected) {
+              this.socket.emit(eventType, data);
+            }
+          },
+          // 进入默认房间
+          joinDefaultRoom: function() {
+            if (this.socket && this.socket.connected) {
+              // 加入默认房间
+              var sendData = {
+                roomName: 'default',
+                user: {
+                  id: this.me.id,
+                  name: this.me.name,
+                }
+              };
+              this.skSendInfo('joinRoom', sendData);
+            }
+          },
+          // 发送信息到聊天室
+          sendRoomMsg: function() {
+            if (!!this.currentRoom.inputVal.trim()) {
+              this.skSendInfo('room-msg', {
+                userName: this.me.name,
+                content: this.currentRoom.inputVal.trim(),
+              });
+              this.currentRoom.inputVal = '';
+            }
+          },
+        },
+        mounted: function() {
+          var self = this;
+          this.$nextTick(function() {
+            self.socket = io();
+
+            // 监听事件-连接成功
+            self.socket.on('connect', function() {
+              // 加入默认房间
+              self.joinDefaultRoom();
+            });
+
+            // 监听房间人员变动
+            self.socket.on('room-change-users', function(users) {
+              self.currentRoom.users = users;
+            });
+
+            // 监听聊天室消息
+            self.socket.on('room-new-msg', function(msg) {
+              self.currentRoom.msgRows.push(msg);
+            });
+
+            // 使用【ctrl + enter】组合键发送信息
+            document.querySelector('#room-textarea').onkeydown = function(event) {
+              var theEvent = event || window.event;      
+              var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+              if (code == 13 && theEvent.ctrlKey) {
+                self.sendRoomMsg();
+              }
+            }
+          });
+        },
+      })
+    })()
+  </script>
+</body>
+</html>

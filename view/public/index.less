@@ -1,0 +1,71 @@
+#app {
+  padding: 20px;
+  min-width: 960px;
+  font-size: 16px;
+  background-color: #f5f5f5;
+  box-sizing: border-box;
+  overflow: hidden;
+  * {
+    box-sizing: border-box;
+    resize: none;
+    line-height: inherit;
+  }
+  
+  // 房间列表
+  .rooms {
+    background-color: #888;
+  }
+
+  // 当前房间
+  .current-room {
+    padding: 10px 10%;
+    &-msgBox {
+      max-width: 900px;
+      padding: 10px;
+      display: block;
+      width: 100%;
+      background-color: #333;
+      overflow-y: scroll;
+      li {
+        margin-bottom: 5px;
+      }
+      p {
+        color: #fff;
+        word-break: break-all;
+      }
+      span {
+        display: inline-block;
+        max-width: 150px;
+        color: #ceca28;
+      }
+    }
+    &-form {
+      max-width: 900px;
+      width: 100%;
+      margin-top: 20px;
+      &-input {
+        display: block;
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #666;
+        background-color: #eee;
+        border-radius: 5px;
+        &:focus {
+          border-color: blue;
+        }
+      }
+      &-send {
+        padding: 10px 20px;
+        margin: 0 10px;
+        border: 1px solid #eee;
+        &:active{
+          opacity: 0.7;
+        }
+      }
+    }
+    &-users {
+      max-height: 100%;
+      overflow-y: scroll;
+    }
+  }
+}

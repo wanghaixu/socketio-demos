@@ -1,0 +1,286 @@
+@charset "utf-8";
+/*RESET v3*/
+* {
+    margin: 0;
+    padding: 0
+}
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, a, cite, img, sub, sup, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    border: 0;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    vertical-align: baseline;
+}
+html,
+body{
+    height: 100%;
+    min-width: 320px;
+    font-family:Arial,"Microsoft YaHei", "Helvetica Neue", Helvetica, sans-serif;
+    font-size:16px;
+    line-height: 1.5;
+}
+#app,.view{
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+button {
+    outline: none;
+}
+ol, ul {
+    margin: 0;
+    padding: 0;
+}
+ol, ul, li {
+    list-style: none;
+}
+i, em {
+    font-style: normal;
+}
+blockquote {
+    quotes: none;
+}
+a {
+    outline: none;
+    text-decoration: none;
+    text-decoration:none;
+    text-decoration: none;
+    // transition: background-color .5s ease 0s,color .5s ease 0s,width .5s ease 0s,border-width .5s ease 0s,border-color .5s ease 0s;
+    // -webkit-transition: background-color .5s ease 0s,color .5s ease 0s,width .5s ease 0s,border-width .5s ease 0s,border-color .5s ease 0s;
+    // -moz-transition: background-color .5s ease 0s,color .5s ease 0s,width .5s ease 0s,border-width .5s ease 0s,border-color .5s ease 0s;
+    // -ms-transition: background-color .5s ease 0s,color .5s ease 0s,width .5s ease 0s,border-width .5s ease 0s,border-color .5s ease 0s;
+    // -o-transition: background-color .5s ease 0s,color .5s ease 0s,width .5s ease 0s,border-width .5s ease 0s,border-color .5s ease 0s
+}
+input, textarea{
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    outline: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+select, option{
+    font-family: inherit;
+}
+div {
+    outline: 0!important;
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: transparent;
+    position: relative
+}
+/* layout */
+html{
+    background-color: #eee;
+}
+body{
+    margin:0 auto;
+}
+.tx-c{
+    text-align:center;
+}
+.tx-r{
+    text-align: right;
+}
+.um-vp {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+}
+.um-vp .up {
+    width: 100%;
+    border: 0
+}
+.uh {
+    display: block;
+    width: 100%
+}
+.um{
+    height: 100%;
+}
+.ufl {
+    float: left!important
+}
+.ufr {
+    float: right!important
+}
+.ut-s {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    outline: 0!important
+}
+.hide {
+    visibility: hidden;
+}
+.uhide {
+    display: none!important
+}
+.uof {
+    overflow: hidden
+}
+.ub{
+    display: -webkit-box;
+    display: box;
+    position: relative
+}
+.ub-rev {
+    -webkit-box-direction: reverse;
+    box-direction: reverse
+}
+.ub-as {
+    -webkit-box-align: start;
+    box-align: start;
+}
+.ub-ac {
+    -webkit-box-align: center;
+    box-align: center
+}
+.ub-ae {
+    -webkit-box-align: end;
+    box-align: end
+}
+.ub-pc {
+    -webkit-box-pack: center;
+    box-pack: center
+}
+.ub-pe {
+    -webkit-box-pack: end;
+    box-pack: end
+}
+.ub-pj {
+    -webkit-box-pack: justify;
+    box-pack: justify
+}
+.ub-ver {
+    -webkit-box-orient: vertical;
+    box-orient: vertical
+}
+.ub-f1 {
+    position: relative;
+    -webkit-box-flex: 1;
+    box-flex: 1
+}
+.ub-f2 {
+    position: relative;
+    -webkit-box-flex: 2;
+    box-flex: 2
+}
+.ub-f3 {
+    position: relative;
+    -webkit-box-flex: 3;
+    box-flex: 3
+}
+.ub-f4 {
+    position: relative;
+    -webkit-box-flex: 4;
+    box-flex: 4
+}
+.ub-img {
+    -webkit-background-size: contain;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center
+}
+#wrap{
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-flex-flow: column;
+    flex-flow: column;
+}
+/*文字换行*/
+.tx-break{
+    word-break:break-all;
+}
+/*2行文本，超出省略号*/
+.tx-moreclip-2{
+    display: -webkit-box;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.tx-moreclip-3{
+    display: -webkit-box;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+/*line类 start 用于添加0.5px边框 需要按方向使用*/
+/*上边框 命名取自line-top 取名方式下同*/
+.line-t:before{
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;    
+    top: 0; 
+    left:0;
+    right: 0;
+    transform-origin: 0 0;
+    transform: scaleY(0.5);
+    box-sizing: border-box;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    -webkit-box-sizing: border-box;
+}
+/*左边框*/
+.line-l:before{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    border-left:1px solid #e5e5e5;    
+    top: 0; 
+    left:0;
+    bottom:0;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scaleX(0.5);
+    -webkit-box-sizing: border-box;
+}
+/*下边框*/
+.line-b:after{
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+    left: 0;
+    bottom:-1px;
+    right: auto;
+    top: auto;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    -webkit-box-sizing: border-box;
+}
+/*右边框*/
+.line-r:after{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    border-right:1px solid #e5e5e5;    
+    top: 0; 
+    right:-1px;
+    bottom:0;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scaleX(0.5);
+    -webkit-box-sizing: border-box;
+}
+/*line类 end*/
